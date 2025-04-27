@@ -3,3 +3,21 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+app_connexion:
+  path: /connexion
+  controller: App\Controller\PagesController::connexion
+note_create:
+    path: /note/create
+    controller: App\Controller\PagesController::create
+
+note_index:
+    path: /notes
+    controller: App\Controller\PagesController::index
+
+note_edit:
+    path: /note/edit/{id}
+    controller: App\Controller\PagesController::edit
+
+note_delete:
+    path: /note/delete/{id}
+    controller: App\Controller\PagesController::delete

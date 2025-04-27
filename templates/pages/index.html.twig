@@ -1,9 +1,125 @@
 {% extends 'base.html.twig' %}
 
+{% block title %}Vos Notes{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #f8f8f8;
+            color: #222;
+            padding: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+
+        h1 {
+            font-weight: normal;
+            border-bottom: 2px solid #222;
+            padding-bottom: 5px;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-weight: normal;
+            margin: 30px 0 15px 0;
+        }
+
+        form {
+            margin-bottom: 30px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #222;
+            background: #fff;
+            font-family: inherit;
+            font-size: 14px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background: #222;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            font-family: inherit;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #fff;
+        }
+
+        li strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        a {
+            color: #222;
+            text-decoration: none;
+            border-bottom: 1px solid;
+            margin-right: 15px;
+            font-size: 14px;
+        }
+
+        form[method="post"] {
+            display: inline;
+        }
+
+        form[method="post"] button {
+            background: #fff;
+            color: #d00;
+            border: 1px solid #d00;
+            padding: 7px 14px;
+        }
+
+        .empty-message {
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+{% endblock %}
+
 {% block body %}
-  
-  <img src="{{ ('https://th.bing.com/th/id/OIP.lWYJ6rw2umFk0I3npOhrlQHaEK?w=287&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7') }}" alt="Logo">
-   <h1>Hello from Tunisia</h1>
-  <h1> it's currently{{'now'| date('h:i A')}}</h1>
-  <a href="{{ path('app_about') }}">Page about</a>
+    <h1>Ajouter une note</h1>
+
+    <div>
+        {{ form_start(form) }}
+        {{ form_row(form.content) }}
+        {{ form_row(form.save) }}
+        {{ form_end(form) }}
+    </div>
+
+    <h2>Mes Notes</h2>
+    <ul>
+        {% for note in notes %}
+            <li>
+                <strong>{{ note.createdAt|date('d/m/Y H:i') }}</strong> :
+                {{ note.content }}
+                <a href="{{ path('note_edit', { id: note.id }) }}">Modifier</a>
+                <form action="{{ path('note_delete', { id: note.id }) }}" method="post" onsubmit="return confirm('Supprimer cette note ?');">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ note.id) }}">
+                    <button type="submit">Supprimer</button>
+                </form>
+            </li>
+        {% else %}
+            <li>Aucune note trouvée.</li>
+        {% endfor %}
+    </ul>
 {% endblock %}

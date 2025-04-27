@@ -3,17 +3,169 @@
 {% block title %}Connexion{% endblock %}
 
 {% block body %}
-    <h1>Connexion</h1>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-    <form action="{{ path('app_connexion') }}" method="post">
-        <div class="mb-3">
-            <label for="email" class="form-label">Adresse email</label>
-            <input type="email" class="form-control" id="email" name="_username" required>
+<style>
+    body {
+        background: #f0f4f8;
+        height: 100vh;
+        margin: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    .login-container {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .login-card {
+        background: #ffffff;
+        border-radius: 25px;
+        padding: 40px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        color: #333333;
+        width: 100%;
+        max-width: 450px;
+        position: relative;
+        z-index: 1;
+        border: 1px solid #e0e0e0;
+    }
+
+    .login-card h3 {
+        font-weight: 700;
+        letter-spacing: 1px;
+        font-size: 28px;
+        background: linear-gradient(to right, #00bcd4, #3b82f6);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #555555;
+        font-size: 14px;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        background: #f9f9f9;
+        border: 1px solid #cccccc;
+        border-radius: 12px;
+        color: #333333;
+        padding: 12px 15px;
+        font-size: 16px;
+        transition: all 0.3s ease;
+    }
+
+    .form-control::placeholder {
+        color: #999999;
+    }
+
+    .form-control:focus {
+        background: #ffffff;
+        border-color: #00bcd4;
+        outline: none;
+        box-shadow: 0 0 8px rgba(0, 188, 212, 0.3);
+    }
+
+    .btn-primary {
+        background: linear-gradient(90deg, #00bcd4, #3b82f6);
+        border: none;
+        border-radius: 12px;
+        padding: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        font-size: 16px;
+        width: 100%;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(90deg, #3b82f6, #00bcd4);
+        box-shadow: 0 4px 15px rgba(0, 188, 212, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .alert-danger {
+        background: #ffe6e6;
+        color: #cc0000;
+        border-radius: 10px;
+        padding: 12px;
+        margin-bottom: 20px;
+        font-size: 14px;
+        border: 1px solid #ffcccc;
+    }
+
+    a {
+        color: #00bcd4;
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    a:hover {
+        color: #3b82f6;
+        text-decoration: underline;
+    }
+
+    @media (max-width: 576px) {
+        .login-card {
+            padding: 30px;
+            max-width: 90%;
+        }
+
+        .form-control {
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            padding: 12px;
+            font-size: 14px;
+        }
+
+        .login-card h3 {
+            font-size: 24px;
+        }
+    }
+</style>
+
+<div class="login-container">
+    <div class="login-card">
+        <h3>Connexion</h3>
+
+        {% if error %}
+            <div class="alert alert-danger">
+                {{ error.messageKey|default(error)|trans(error.messageData|default({}), 'security') }}
+            </div>
+        {% endif %}
+
+        <form method="post">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" id="email" name="email" class="form-control"
+                       value="{{ last_username }}" placeholder="Votre email" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Mot de passe</label>
+                <input type="password" id="password" name="password" class="form-control"
+                       placeholder="Votre mot de passe" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Se connecter</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <a href="{{ path('app_inscription') }}">Créer un compte</a>
         </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Mot de passe</label>
-            <input type="password" class="form-control" id="password" name="_password" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Se connecter</button>
-    </form>
+    </div>
+</div>
 {% endblock %}

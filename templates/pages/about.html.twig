@@ -1,7 +1,119 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
- <img src="{{ ('https://th.bing.com/th/id/OIP.yC1PHrhq_EaqVm8NbL7YgAHaE8?rs=1&pid=ImgDetMain') }}" alt="Logo">
- <h1>built with <i class="fas fa-heart"></i> by your_name </h1>
- <a href="{{ path('app_pages') }}">Page home</a>
+  <img src="https://th.bing.com/th/id/OIP.yC1PHrhq_EaqVm8NbL7YgAHaE8?rs=1&pid=ImgDetMain" alt="Logo" class="logo-img" />
+
+  
+  <h1>Built with <i class="fas fa-heart"></i> by your_name</h1>
+
+  <!-- Link to Home Page -->
+  <a href="{{ path('app_pages') }}" class="home-link">Page home</a>
+
+  <!-- Inline CSS for styling -->
+  <style>
+    /* General Body Styling */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f0f4f8;
+        color: #333;
+        text-align: center;
+        padding: 50px;
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    /* Styling for the Logo Image */
+    .logo-img {
+        width: 400px;  /* Augmenter la largeur de l'image */
+        max-width: 100%;
+        height: auto;
+        border-radius: 20px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);  /* Ombre plus marquée */
+        margin-bottom: 30px;
+        transition: transform 0.3s ease;  /* Effet de zoom au survol */
+    }
+
+    /* Hover effect for image */
+    .logo-img:hover {
+        transform: scale(1.1);  /* Effet zoom au survol */
+    }
+
+    /* Styling for Main Title */
+    h1 {
+        font-size: 40px;
+        color: #333;
+        margin-top: 20px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        background: linear-gradient(to right, #00ddeb, #ff6f61);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom: 20px;
+        animation: gradient-text 3s ease infinite;
+    }
+
+    /* Animation for gradient text */
+    @keyframes gradient-text {
+        0% {
+            background-position: 0%;
+        }
+        50% {
+            background-position: 100%;
+        }
+        100% {
+            background-position: 0%;
+        }
+    }
+
+    /* Styling for the Heart Icon */
+    h1 i {
+        color: red;
+        margin-left: 8px;
+    }
+
+    /* Styling for the Link (Home Button) */
+    .home-link {
+        display: inline-block;
+        margin-top: 30px;
+        text-decoration: none;
+        color: #fff;
+        font-size: 18px;
+        font-weight: 600;
+        padding: 12px 25px;
+        border-radius: 30px;
+        background-color: #00ddeb;
+        transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Hover Effect for the Link (Home Button) */
+    .home-link:hover {
+        background-color: #ff6f61;
+        color: white;
+        box-shadow: 0 6px 20px rgba(255, 111, 97, 0.4);
+        transform: translateY(-5px);  /* Effet de mouvement au survol */
+    }
+
+    /* Media Queries pour les petits écrans */
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 30px;
+        }
+
+        .home-link {
+            font-size: 16px;
+            padding: 10px 20px;
+        }
+
+        .logo-img {
+            width: 300px;  /* Ajuster la taille pour les petits écrans */
+        }
+    }
+  </style>
 {% endblock %}
